@@ -1,0 +1,91 @@
+<!--
+Copyright 2015-2016 Carnegie Mellon University
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Face Recognition</title>
+        <link href="{{url_for('static',filename='vendor/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static',filename='vendor/css/bootstrap-toggle.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static',filename='vendor/css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{url_for('static',filename='css/main.css')}}" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h3>Face Recognition Based On NXP LS1046A</h3>
+            <div class="header" id="videodiv">
+                <!--img src="{{ url_for('video_feed') }}" width="1664" height="624"-->
+                <img src="{{ url_for('video_feed') }}" width="1280" height="720">
+            </div>
+            <div class="content2">
+            </div>
+            <div class="content1">
+                <h4>Input Your Name:
+                    <input type="text" id="addPersonTxt" style="width:20%;border:1.5px solid #000">
+                </h4>
+                <h4>
+                    <button type="button" id="btn_start">Add Person</button>
+                    <button type="button" id="btn_delete">Delete Person</button>
+                </h4>
+            </div>
+        </div>
+    </body>
+    <script src="{{url_for('static',filename='vendor/js/jquery.min.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/bootstrap.min.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/bootstrap-toggle.min.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/bootstrap-dialog.min.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/handlebars.min.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/jstat.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/facereg-demo.js')}}"></script>
+    <script src="{{url_for('static',filename='vendor/js/socket.io.min.js')}}"></script>
+    <script type="text/javascript">
+     var people = '', training = false, socket;
+     console.log("Start");
+
+function btnStartOnclick111(){
+    var name = $("#addPersonTxt").val();
+    if(document.getElementById("addPersonTxt").value=='')
+    { alert("Please input your name!"); return; }
+
+    console.log("in btnStartOnclick");
+    sendMessage("ADDPERSON_REQ", name);
+}
+
+
+function btnDeleteOnclick111(){
+    var name = $("#addPersonTxt").val();
+    if(document.getElementById("addPersonTxt").value=='')
+    { alert("Please input your name!"); return; }
+
+    console.log("in btnDeleteOnclick");
+    sendMessage("DELPERSON_REQ", name);
+}
+
+     $('#btn_start').click(btnStartOnclick111);
+     $('#btn_delete').click(btnDeleteOnclick111);
+     socket = io.connect('http://' + document.domain + ':' + location.port + '/testnamespace');
+     //console.log('http://' + document.domain + ':' + location.port + '/testnamespace');
+     //createSocket('http://' + document.domain + ':' + location.port + '/testnamespace');
+     //createSocket('http://' + document.domain + ':' + location.port + '/testnamesp');
+     //createSocket("wss://" + window.location.hostname + ":WEBSOCKET_PORT");
+
+    </script>
+</html>
+
