@@ -1,13 +1,15 @@
 #!/bin/bash
 echo "Compiling"
+ROOT=`pwd`
 
-cd face_recognition/
+cd $(ROOT)/face_recognition/
 make
-cd image_classification/
+cd $(ROOT)image_classification/
 make
-cd object_detection/
+cd $(ROOT)object_detection/
 make
 
+cd $(ROOT)
 cp face_recognition/FaceRecognition.so webserver/inference/
 cp image_classification/ImageClassification.so webserver/inference/
 cp object_detection/ObjectDetection.so webserver/inference/
