@@ -1,4 +1,4 @@
 FROM eiqcloud/tflite-inference
-COPY webserver /
+COPY target /
 EXPOSE 8000
 EXPOSE 8200
