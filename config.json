@@ -1,1 +1,8 @@
-{"model_dir" : "/webserver/models/", "app_parameters" : "cmd"}
+{
+	"model_dir":"/webserver/models/",
+       	"docker_cmd":{
+		"commands":"/bin/bash -c",
+	       	"args":"cd /root/tflite-inference; python main.py --dev usb0",
+	       	"host_network":true
+       }
+}
